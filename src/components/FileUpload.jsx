@@ -28,11 +28,11 @@ const FileUpload = ({ onDataLoaded }) => {
         });
 
         const firstRow = data[0];
-        // Check for required columns (Descricao is optional)
-        if ('Projeto' in firstRow && 'Horas' in firstRow && 'Link' in firstRow) {
+        // Check for required columns (Descricao and Link are optional)
+        if ('Projeto' in firstRow && 'Horas' in firstRow) {
           onDataLoaded(data);
         } else {
-          alert('Invalid file format. Columns "Projeto", "Horas", and "Link" are required. "Descricao" is optional.');
+          alert('Invalid file format. Columns "Projeto" and "Horas" are required. "Link" and "Descricao" are optional.');
         }
       }
     };

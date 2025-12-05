@@ -47,17 +47,23 @@ const StaticLabel = ({ data, color, percentage, onHover, onLeave, isHovered, isD
                     )}
                 </div>
 
-                <div className="mt-3 pt-3 border-t border-gray-100">
-                    <button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(data.Link, '_blank');
-                        }}
-                        className="text-blue-600 hover:text-blue-800 text-[10px] font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 group"
-                    >
-                        <span>Acessar Projeto</span>
-                        <ExternalLink size={12} className="group-hover:translate-x-1 transition-transform" />
-                    </button>
+                <div className="mt-3 pt-3 border-t border-gray-100 min-h-[30px]">
+                    {data.Link ? (
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(data.Link, '_blank');
+                            }}
+                            className="text-blue-600 hover:text-blue-800 text-[10px] font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 group"
+                        >
+                            <span>Acessar Projeto</span>
+                            <ExternalLink size={12} className="group-hover:translate-x-1 transition-transform" />
+                        </button>
+                    ) : (
+                        <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest cursor-not-allowed select-none">
+                            Sem Link
+                        </span>
+                    )}
                 </div>
             </div>
         </div>

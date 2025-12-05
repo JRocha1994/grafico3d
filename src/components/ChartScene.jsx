@@ -10,6 +10,9 @@ const ChartScene = ({ data, onBack }) => {
     const [hoveredLabelIndex, setHoveredLabelIndex] = useState(null);
 
     const handleSliceClick = (sliceData) => {
+        // If Link is missing/empty, ignore click (do nothing)
+        if (!sliceData.Link) return;
+
         setSelectedSlices(prev => {
             const index = prev.findIndex(s => s.Projeto === sliceData.Projeto);
             if (index !== -1) {
