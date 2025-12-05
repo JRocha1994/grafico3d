@@ -39,12 +39,15 @@ const ChartScene = ({ data, onBack }) => {
             '#D4A5A5', '#9B59B6', '#3498DB', '#E67E22', '#2ECC71'
         ];
 
-        const processedData = data.map((item, index) => ({
-            ...item,
-            percentage: ((Number(item.Horas) / totalHours) * 100).toFixed(1),
-            color: colors[index % colors.length],
-            originalIndex: index
-        }));
+        const processedData = data
+            .map((item, index) => ({
+                ...item,
+                Horas: Number(item.Horas).toFixed(1), // Format to 1 decimal
+                percentage: ((Number(item.Horas) / totalHours) * 100).toFixed(1),
+                color: colors[index % colors.length],
+                originalIndex: index
+            }))
+            .sort((a, b) => Number(b.Horas) - Number(a.Horas)); // Sort descending by hours
 
         const left = processedData.filter((_, i) => i % 2 === 0);
         const right = processedData.filter((_, i) => i % 2 !== 0);
