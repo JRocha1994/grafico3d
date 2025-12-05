@@ -13,12 +13,22 @@ const FileUpload = ({ onDataLoaded }) => {
       const wb = XLSX.read(bstr, { type: 'binary' });
       const wsname = wb.SheetNames[0];
       const ws = wb.Sheets[wsname];
-      const data = XLSX.utils.sheet_to_json(ws);
+      const rawData = XLSX.utils.sheet_to_json(ws);
 
-      // Validate columns
-      if (data.length > 0) {
+      // Normalize column names (trim whitespace) and validate
+      if (rawData.length > 0) {
+        // Create normalized data with trimmed keys
+        const data = rawData.map(row => {
+          const normalizedRow = {};
+          Object.keys(row).forEach(key => {
+            const trimmedKey = key.trim();
+            normalizedRow[trimmedKey] = row[key];
+          });
+          return normalizedRow;
+        });
+
         const firstRow = data[0];
-        // Check for required columns (Descricao is optional but recommended to check if present for full functionality)
+        // Check for required columns (Descricao is optional)
         if ('Projeto' in firstRow && 'Horas' in firstRow && 'Link' in firstRow) {
           onDataLoaded(data);
         } else {
